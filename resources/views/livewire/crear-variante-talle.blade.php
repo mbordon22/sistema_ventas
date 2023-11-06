@@ -111,7 +111,7 @@
 
             Toast.fire({
             icon: 'success',
-            title: 'Almacen creado con exito'
+            title: 'Variante/s creada/s con exito'
             })
         })
     </script>

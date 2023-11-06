@@ -3,62 +3,70 @@
     <form method="POST" wire:submit.prevent="crearVarianteColor">
 
         {{-- Filas de Color y Stock --}}
-        @foreach($talles as $key => $talle)
-            <div class="mt-4 grid grid-cols-5 gap-4 items-center">
-                <!-- Color -->
-                <div class="col-span-2">
-                    <x-input-label :value="__('Color')" />
-                    <x-text-input id="talle-{{ $key }}" class="block mt-1 w-full" type="text" wire:model="talles.{{ $key }}" />
-                    <x-input-error :messages="$errors->get('talles')" class="mt-2" />
+        @foreach($colores as $key => $color)
+        <h3 class="font-bold text-lg">Variante {{$key}}</h3>
+            <div class="py-4 my-4 border-b-2 border-b-white">
+                <div class="mt-4 grid grid-cols-5 gap-4 items-center">
+                    <!-- Colores -->
+                    <div class="col-span-2">
+                        <x-input-label :value="__('Color')" />
+                        <x-text-input id="color-{{ $key }}" class="block mt-1 w-full" type="text" wire:model="colores.{{ $key }}" />
+                        <x-input-error :messages="$errors->get('colores')" class="mt-2" />
+                    </div>
+    
+                    <!-- Stock -->
+                    <div class="col-span-2">
+                        <x-input-label :value="__('Stock')" />
+                        <x-text-input class="block mt-1 w-full" type="number" min="0" wire:model="stock.{{ $key }}"/>
+                        <x-input-error :messages="$errors->get('stock')" class="mt-2" />
+                    </div>
+    
+                    <div class="col-span-1">
+                        @if($key > 0)
+                            <button type="button" class="text-red-600 hover:underline" onclick='quitarColor({{$key}})'>Eliminar</button>
+                        @endif
+                    </div>
                 </div>
-
-                <!-- Stock -->
-                <div class="col-span-2">
-                    <x-input-label :value="__('Stock')" />
-                    <x-text-input class="block mt-1 w-full" type="number" min="0" wire:model="stock.{{ $key }}"/>
-                    <x-input-error :messages="$errors->get('stock')" class="mt-2" />
-                </div>
-
-                <div class="col-span-1">
-                    @if($key > 0)
-                        <button type="button" class="text-red-600 hover:underline" onclick='quitarTalle({{$key}})'>Eliminar</button>
-                    @endif
+    
+                <!-- Imagenes -->
+                <div class="my-4 py-4">
+                    <x-input-label for="imagenes" :value="__('Imagenes Producto')" />
+                    <input 
+                        id="imagen-{{ $key }}" 
+                        type="file" 
+                        class="mt-1 block w-full" 
+                        wire:model="imagenes.{{ $key }}"
+                        accept="image/*"
+                        multiple
+                    />
+                
+                    <div class="my-5 w-80">
+                        @if($imagenes[$key])
+                            Imagenes:
+                            <div class="flex items-center gap-3">
+                                @foreach ($imagenes[$key] as $imagen)  
+                                    {{-- @foreach ($imagenes_key as $imagen) --}}
+                                        <div>
+                                            <img 
+                                                src="{{$imagen->temporaryURL()}}" 
+                                                alt=""
+                                                width="200px"
+                                            >
+                                            {{-- <button type="button" wire:click="eliminarImagen({{$key}}, '{{$imagen->getFilename()}}')">Eliminar</button> --}}
+                                        </div>
+                                    {{-- @endforeach --}}
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+                
+                    <x-input-error :messages="$errors->get('imagenes.{{$key}}')" class="mt-2" />
                 </div>
             </div>
         @endforeach
 
         <div>
-            <button type="button" class="text-blue-600 hover:underline" wire:click='$dispatch("agregarTalle")'>+ Agregar Talle</button>
-        </div>
-
-        <!-- Imagenes -->
-        <div class="my-4 py-4 border-y-2 border-y-white">
-            <x-input-label for="imagenes" :value="__('Imagenes Producto')" />
-            <input 
-                id="imagenes" 
-                type="file" 
-                class="mt-1 block w-full" 
-                wire:model="imagenes"
-                accept="image/*"
-                multiple
-            />
-
-            <div class="my-5 w-80">
-                @if($imagenes)
-                    Imagenes:
-                    <div class="flex items-center gap-3">
-                        @foreach ($imagenes as $imagen)    
-                        <img 
-                            src="{{$imagen->temporaryURL()}}" 
-                            alt=""
-                            width="200px"
-                        >
-                        @endforeach
-                    </div>
-                @endif
-            </div>
-
-            <x-input-error :messages="$errors->get('imagenes')" class="mt-2" />
+            <button type="button" class="text-blue-600 hover:underline" wire:click='$dispatch("agregarColor")'>+ Agregar Color</button>
         </div>
 
         <div class="flex items-center justify-end mt-4">
@@ -72,10 +80,10 @@
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        function quitarTalle(key)
+        function quitarColor(key)
         {
             Swal.fire({
-                title: 'Eliminar Talle?',
+                title: 'Eliminar Color?',
                 text: "Esta acción no se puede revertir!",
                 icon: 'warning',
                 showCancelButton: true,
@@ -86,10 +94,10 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     console.log(key)
-                    Livewire.dispatch('eliminarTalle', {key: key}); 
+                    Livewire.dispatch('eliminarColor', {key: key}); 
                     Swal.fire(
                     'Eliminado!',
-                    'El talle fue eliminado.',
+                    'El color fue eliminado.',
                     'success'
                     )
                 }
@@ -111,7 +119,7 @@
 
             Toast.fire({
             icon: 'success',
-            title: 'Almacen creado con exito'
+            title: 'Variante/s creada/s con exito'
             })
         })
     </script>
