@@ -24,14 +24,6 @@ class ProductoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(Producto $producto)
@@ -44,7 +36,9 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        //
+        return view('productos.edit',[
+            'producto' => $producto
+        ]);
     }
 
     /**

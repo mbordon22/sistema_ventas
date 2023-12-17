@@ -4,7 +4,7 @@
 
         {{-- Filas de Color y Stock --}}
         @foreach($colores as $key => $color)
-        <h3 class="font-bold text-lg">Variante {{$key}}</h3>
+        <h3 class="font-bold text-lg p-2 bg-gray-400">Variante {{$key+1}}</h3>
             <div class="py-4 my-4 border-b-2 border-b-white">
                 <div class="mt-4 grid grid-cols-5 gap-4 items-center">
                     <!-- Colores -->

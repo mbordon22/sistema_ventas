@@ -4,6 +4,7 @@
 
         {{-- Filas de Talle y Stock --}}
         @foreach($talles as $key => $talle)
+        <h3 class="font-bold text-lg mt-4 p-2 bg-gray-400">Variante {{$key+1}}</h3>
             <div class="mt-4 grid grid-cols-5 gap-4 items-center">
                 <!-- Talle -->
                 <div class="col-span-2">
