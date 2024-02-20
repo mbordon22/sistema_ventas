@@ -46,7 +46,14 @@ class ProductoController extends Controller
      */
     public function variantes(Producto $producto)
     {
-        return view('productos.variantes', [
+        return view('productos.variantes.create', [
+            'producto' => $producto
+        ]);
+    }
+
+    public function variantesEdit(Producto $producto)
+    {
+        return view('productos.variantes.edit', [
             'producto' => $producto
         ]);
     }

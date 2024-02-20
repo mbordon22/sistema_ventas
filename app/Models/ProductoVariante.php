@@ -20,6 +20,6 @@ class ProductoVariante extends Model
 
     public function imagenes()
     {
-        return $this->hasMany(ProductoVariante::class, 'vacante_id', 'id');
+        return $this->hasMany(ProductoVarianteImagen::class, 'variante_id');
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\UploadFileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/productos/{producto}', [ProductoController::class, 'show'])->name('productos.show');
     Route::get('/productos/{producto}/variantes', [ProductoController::class, 'variantes'])->name('productos.variantes');
     Route::get('/productos/{producto}/variantes/edit', [ProductoController::class, 'variantesEdit'])->name('productos.variantes.edit');
-
+    
 });
 
 

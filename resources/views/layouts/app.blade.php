@@ -16,6 +16,9 @@
         
         {{-- fontawesome --}}
         <link rel="stylesheet" href="{{asset('fontawesome-free-6.3.0-web/css/all.min.css')}}">
+
+        {{-- filepond --}}
+        {{-- <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" /> --}}
         
         {{-- Livewire styles --}}
         @livewireStyles
@@ -42,6 +45,9 @@
         </div>
         @livewire('wire-elements-modal')
     </body>
+
+    {{-- filepond --}}
+    {{-- <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script> --}}
     @livewireScripts
     @stack('scripts')
 </html>
